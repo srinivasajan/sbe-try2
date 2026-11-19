@@ -1,10 +1,14 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Plus_Jakarta_Sans } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { ConditionalLayout } from '@/components/conditional-layout'
 import './globals.css'
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-brand",
+});
 
 const siteUrl = "https://shreebalajienterprises.live"
 
@@ -66,7 +70,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`${inter.variable} ${plusJakarta.variable}`}>
       <body className="font-sans antialiased min-h-screen flex flex-col bg-background text-foreground">
         <ConditionalLayout>
           {children}

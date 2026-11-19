@@ -4,7 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { Phone, User, Mail, MapPin } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { BrandLogo } from "@/components/brand-logo"
+import { BrandIdentity } from "@/components/brand-logo"
 import { WhatsAppIcon } from "@/components/whatsapp-icon"
 import { saveInquiry, nextInquiryId } from "@/lib/admin-store"
 
@@ -44,11 +44,8 @@ export default function SignUpPage() {
         <div className="w-full max-w-md">
           {/* Logo */}
           <div className="flex justify-center mb-8">
-            <Link href="/" aria-label="Shree Balaji Enterprises Home" className="flex items-center gap-0.5 text-xl font-bold tracking-tight">
-              <BrandLogo className="h-9 w-auto aspect-[820/528] -ml-1.5" />
-              <span className="text-[20px] font-bold leading-none tracking-tight">
-                <span className="text-amber-500">Shree </span><span className="text-primary">Balaji</span><span className="text-foreground"> Enterprises</span>
-              </span>
+            <Link href="/" aria-label="Shree Balaji Enterprises Home" className="inline-flex items-center">
+              <BrandIdentity size="lg" />
             </Link>
           </div>
 

@@ -1,7 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Phone, Mail, MapPin } from "lucide-react"
-import { BrandLogo } from "@/components/brand-logo"
+import { BrandIdentity } from "@/components/brand-logo"
 import { WhatsAppIcon } from "@/components/whatsapp-icon"
 import { OFFICIAL_GOOGLE_MAPS_URL } from "@/lib/constants"
 
@@ -90,12 +90,9 @@ export function Footer() {
         {/* Divider */}
         <div className="border-t border-card/20 pt-8">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-0.5" aria-label="Shree Balaji Enterprises">
-              <BrandLogo className="h-9 w-auto aspect-[820/528] -ml-1.5" />
-              <span className="text-[19px] sm:text-[20px] font-bold text-card leading-none tracking-tight whitespace-nowrap">
-                <span className="text-amber-500">Shree</span> <span className="text-primary">Balaji</span> Enterprises
-              </span>
+            {/* Logo & Brand Wordmark */}
+            <Link href="/" className="inline-flex items-center shrink-0" aria-label="Shree Balaji Enterprises">
+              <BrandIdentity inverted />
             </Link>
 
             {/* Legal links & bottom contact button */}

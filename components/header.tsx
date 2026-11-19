@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation"
 import { Menu, X } from "lucide-react"
 import { motion, AnimatePresence } from "motion/react"
 import { Button } from "@/components/ui/button"
-import { BrandLogo } from "@/components/brand-logo"
+import { BrandIdentity } from "@/components/brand-logo"
 import { Dock, DockItem } from "@/components/core/dock"
 
 const navItems = [
@@ -26,13 +26,10 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 bg-card border-b border-border">
       <div className="w-full px-4 sm:px-6 lg:px-12 flex items-center justify-between h-[60px]">
-        {/* Left: Brand Logo */}
+        {/* Left: Brand Presentation */}
         <div className="flex-1 flex items-center justify-start min-w-0">
-          <Link href="/" className="flex items-center gap-0.5 shrink-0" aria-label="Shree Balaji Enterprises">
-            <BrandLogo className="h-9 w-auto aspect-[820/528] -ml-1.5" priority />
-            <span className="text-[19px] sm:text-[20px] font-bold text-foreground leading-none tracking-tight whitespace-nowrap">
-              <span className="text-amber-500">Shree</span> <span className="text-primary">Balaji</span> Enterprises
-            </span>
+          <Link href="/" className="inline-flex items-center shrink-0" aria-label="Shree Balaji Enterprises">
+            <BrandIdentity priority />
           </Link>
         </div>
 
