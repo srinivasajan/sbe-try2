@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { OFFICIAL_GOOGLE_MAPS_URL } from "@/lib/constants"
 
 export const metadata: Metadata = {
   title: "Terms of Advisory & Brokerage",
@@ -279,7 +280,7 @@ export default function TermsPage() {
                 <p className="text-muted-foreground">
                   Chambers:{" "}
                   <a
-                    href="https://share.google/tY8FNxnQ15wDXyRom"
+                    href={OFFICIAL_GOOGLE_MAPS_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:underline text-foreground"

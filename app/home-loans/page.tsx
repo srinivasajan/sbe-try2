@@ -16,6 +16,7 @@ import {
 } from "lucide-react"
 import { WhatsAppIcon } from "@/components/whatsapp-icon"
 import { saveInquiry, nextInquiryId } from "@/lib/admin-store"
+import { OFFICIAL_GOOGLE_MAPS_URL } from "@/lib/constants"
 
 const WHATSAPP_NUMBER = "917767805544"
 const PHONE_DISPLAY = "+91 77678 05544"
@@ -1191,7 +1192,7 @@ export default function HomeLoansPage() {
             {/* Direct Office & Telephone Details */}
             <div className="pt-8 mt-8 border-t border-border/70 flex flex-col items-center justify-center gap-3 text-xs sm:text-sm text-muted-foreground text-center">
               <a
-                href="https://share.google/tY8FNxnQ15wDXyRom"
+                href={OFFICIAL_GOOGLE_MAPS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex flex-wrap items-center justify-center gap-2 max-w-full hover:text-primary transition-colors group"

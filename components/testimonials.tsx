@@ -3,6 +3,7 @@
 import { Star, Quote } from "lucide-react"
 import { InView } from "@/components/core/in-view"
 import { AnimatedGroup } from "@/components/core/animated-group"
+import { OFFICIAL_GOOGLE_MAPS_URL } from "@/lib/constants"
 
 const testimonials = [
   {
@@ -55,7 +56,7 @@ export function Testimonials() {
             </p>
           </div>
           <a
-            href="https://share.google/tY8FNxnQ15wDXyRom"
+            href={OFFICIAL_GOOGLE_MAPS_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-border bg-card hover:bg-muted text-xs font-semibold text-foreground transition-colors shrink-0 shadow-xs"

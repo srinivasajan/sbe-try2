@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation"
 import { Phone, Mail, MapPin, Check, Copy, ExternalLink, Send } from "lucide-react"
 import { WhatsAppIcon } from "@/components/whatsapp-icon"
 import { saveInquiry, nextInquiryId } from "@/lib/admin-store"
+import { OFFICIAL_GOOGLE_MAPS_URL } from "@/lib/constants"
 
 const enquiryCategories = [
   { id: "residential", label: "Buy Residential" },
@@ -172,7 +173,7 @@ function ContactForm() {
                       )}
                     </button>
                     <a
-                      href="https://share.google/tY8FNxnQ15wDXyRom"
+                      href={OFFICIAL_GOOGLE_MAPS_URL}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="h-8 px-3 rounded-lg border border-border bg-background hover:bg-muted font-medium text-foreground inline-flex items-center gap-1.5 transition-colors"
@@ -196,27 +197,56 @@ function ContactForm() {
               <span>Chat on WhatsApp</span>
             </a>
 
-            {/* Compact Map Preview */}
-            <div className="rounded-xl border border-border overflow-hidden h-36 bg-muted relative group">
-              <iframe
-                src="https://maps.google.com/maps?q=19.1895593,73.2230161&z=17&output=embed"
-                width="100%"
-                height="100%"
-                className="border-0 w-full h-full"
-                allowFullScreen
-                loading="lazy"
-                title="Office Location Map"
-              />
-              <a
-                href="https://share.google/tY8FNxnQ15wDXyRom"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="absolute bottom-2 right-2 px-2.5 py-1 rounded-md bg-background/90 backdrop-blur-sm border border-border/80 text-[11px] font-semibold text-foreground hover:text-primary shadow-xs transition-colors inline-flex items-center gap-1"
+            {/* Interactive Map Card */}
+            <a
+              href={OFFICIAL_GOOGLE_MAPS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Open Shree Balaji Enterprises official location on Google Maps"
+              className="group relative block h-36 rounded-xl border border-border bg-gradient-to-br from-slate-100 via-sky-50/40 to-slate-100 dark:from-slate-900 dark:via-sky-950/20 dark:to-slate-900 p-4 overflow-hidden transition-all duration-200 hover:border-primary/50 hover:shadow-md cursor-pointer"
+            >
+              {/* Decorative map grid lines */}
+              <svg
+                className="absolute inset-0 h-full w-full stroke-foreground/5 dark:stroke-white/5 pointer-events-none"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <span>Open in Google Maps</span>
-                <ExternalLink className="h-3 w-3" />
-              </a>
-            </div>
+                <defs>
+                  <pattern id="contact-map-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+                    <path d="M 32 0 L 0 0 0 32" fill="none" strokeWidth="1" />
+                  </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#contact-map-grid)" />
+                <path d="M-20 40 Q 80 80, 160 20 T 360 90" fill="none" strokeWidth="2.5" className="stroke-primary/15" />
+                <path d="M30 140 Q 120 70, 240 100 T 400 40" fill="none" strokeWidth="2" className="stroke-foreground/10" />
+              </svg>
+
+              {/* Pin indicator */}
+              <div className="relative z-10 flex items-start gap-3">
+                <div className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm group-hover:scale-105 transition-transform">
+                  <span className="absolute -inset-1 rounded-xl bg-primary/20 animate-ping opacity-75" />
+                  <MapPin className="h-5 w-5 relative z-10" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-xs font-bold text-foreground truncate">Shree Balaji Enterprises</span>
+                    <span className="inline-flex items-center rounded-full bg-emerald-500/10 px-1.5 py-0.5 text-[10px] font-medium text-emerald-600 dark:text-emerald-400">
+                      Verified
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground truncate mt-0.5">
+                    Chikhloli, Ambernath (West) &bull; Maharashtra
+                  </p>
+                </div>
+              </div>
+
+              {/* Bottom CTA Pill */}
+              <div className="absolute bottom-3 right-3 z-10">
+                <span className="inline-flex items-center gap-1.5 rounded-lg bg-background/95 px-3 py-1.5 text-[11px] font-semibold text-foreground shadow-xs border border-border/80 backdrop-blur-sm group-hover:border-primary group-hover:text-primary transition-colors">
+                  <span>Open in Google Maps</span>
+                  <ExternalLink className="h-3 w-3" />
+                </span>
+              </div>
+            </a>
 
             {/* Discreet MahaRERA notice */}
             <p className="text-xs text-muted-foreground pt-0.5">

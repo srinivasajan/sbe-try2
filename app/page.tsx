@@ -9,6 +9,7 @@ import { PopularSearches } from "@/components/popular-searches"
 import { ArrowRight, BookOpen, Sparkles } from "lucide-react"
 import { InView } from "@/components/core/in-view"
 import { WhatsAppIcon } from "@/components/whatsapp-icon"
+import { OFFICIAL_GOOGLE_MAPS_URL } from "@/lib/constants"
 
 export const metadata: Metadata = {
   title: "Shree Balaji Enterprises — Real Estate in Ambernath & MMR",
@@ -52,7 +53,7 @@ export default function Home() {
     telephone: ["+917767805544", "+919168588575"],
     email: "shreebalajienterprisesamb@gmail.com",
     priceRange: "₹₹ - ₹₹₹₹",
-    hasMap: "https://share.google/tY8FNxnQ15wDXyRom",
+    hasMap: OFFICIAL_GOOGLE_MAPS_URL,
     address: {
       "@type": "PostalAddress",
       streetAddress:
@@ -101,7 +102,7 @@ export default function Home() {
     },
     sameAs: [
       "https://www.facebook.com/profile.php?id=100091469033284",
-      "https://share.google/tY8FNxnQ15wDXyRom",
+      OFFICIAL_GOOGLE_MAPS_URL,
     ],
   }
 

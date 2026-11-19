@@ -3,6 +3,7 @@ import Image from "next/image"
 import { Phone, Mail, MapPin } from "lucide-react"
 import { BrandLogo } from "@/components/brand-logo"
 import { WhatsAppIcon } from "@/components/whatsapp-icon"
+import { OFFICIAL_GOOGLE_MAPS_URL } from "@/lib/constants"
 
 const footerSections = [
   {
@@ -70,7 +71,7 @@ export function Footer() {
                 { href: "tel:7767805544", icon: Phone, label: "+91 7767805544", iconColor: "text-primary" },
                 { href: "mailto:shreebalajienterprisesamb@gmail.com", icon: Mail, label: "Email Us", iconColor: "text-primary" },
                 { href: "https://wa.me/917767805544", icon: WhatsAppIcon, label: "WhatsApp", external: true, iconColor: "text-[#25D366]" },
-                { href: "https://share.google/tY8FNxnQ15wDXyRom", icon: MapPin, label: "Get Directions", external: true, iconColor: "text-primary" },
+                { href: OFFICIAL_GOOGLE_MAPS_URL, icon: MapPin, label: "Get Directions", external: true, iconColor: "text-primary" },
               ].map(({ href, icon: Icon, label, external, iconColor }) => (
                 <a
                   key={label}
@@ -125,7 +126,7 @@ export function Footer() {
           <p className="text-xs text-card/40 mt-4">
             &copy; 2026 Shree Balaji Enterprises. All Rights Reserved. &bull;{" "}
             <a
-              href="https://share.google/tY8FNxnQ15wDXyRom"
+              href={OFFICIAL_GOOGLE_MAPS_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-card underline-offset-2 hover:underline transition-colors"

@@ -17,6 +17,7 @@ import {
 } from "lucide-react"
 import { BrandLogo } from "@/components/brand-logo"
 import { WhatsAppIcon } from "@/components/whatsapp-icon"
+import { OFFICIAL_GOOGLE_MAPS_URL } from "@/lib/constants"
 
 export const metadata: Metadata = {
   title: "About Us | Shree Balaji Enterprises — Real Estate Practice, Ambernath & MMR",
@@ -33,7 +34,7 @@ export const metadata: Metadata = {
 const WHATSAPP_NUMBER = "917767805544"
 const PHONE_DISPLAY = "+91 77678 05544"
 const OFFICE_ADDRESS = "Shop No. 6, Vallabh Building, Avdhoot Residency, Near Sarvodaya Nagar, Chikhloli, Ambernath (West) 421505"
-const OFFICE_MAPS_URL = "https://share.google/tY8FNxnQ15wDXyRom"
+const OFFICE_MAPS_URL = OFFICIAL_GOOGLE_MAPS_URL
 
 const servicesList = [
   {
