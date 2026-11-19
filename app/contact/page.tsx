@@ -3,7 +3,7 @@
 import React, { useState, useEffect, Suspense } from "react"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
-import { Phone, Mail, MapPin, Check, Copy, ExternalLink, Send } from "lucide-react"
+import { Phone, Mail, MapPin, Check, Copy, ExternalLink, Send, AlertCircle, Loader2 } from "lucide-react"
 import { WhatsAppIcon } from "@/components/whatsapp-icon"
 import { saveInquiry, nextInquiryId } from "@/lib/admin-store"
 import { OFFICIAL_GOOGLE_MAPS_URL } from "@/lib/constants"
@@ -17,6 +17,8 @@ const enquiryCategories = [
   { id: "inspection", label: "Site Visit" },
 ]
 
+const INDIAN_MOBILE_REGEX = /^[6-9][0-9]{9}$/
+
 function ContactForm() {
   const searchParams = useSearchParams()
   const initialProp = searchParams.get("property") || searchParams.get("ref") || ""
@@ -27,8 +29,17 @@ function ContactForm() {
   const [phone, setPhone] = useState("")
   const [email, setEmail] = useState("")
   const [specifications, setSpecifications] = useState("")
+  const [honeypot, setHoneypot] = useState("")
+
+  const [phoneError, setPhoneError] = useState<string | null>(null)
+  const [nameError, setNameError] = useState<string | null>(null)
+  const [emailError, setEmailError] = useState<string | null>(null)
+  const [submitError, setSubmitError] = useState<string | null>(null)
+
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [submittedName, setSubmittedName] = useState("")
+  const [submittedPhone, setSubmittedPhone] = useState("")
   const [copiedAddress, setCopiedAddress] = useState(false)
 
   useEffect(() => {
@@ -53,36 +64,158 @@ function ContactForm() {
     setTimeout(() => setCopiedAddress(false), 2500)
   }
 
-  const handleSubmit = (e: React.FormEvent, viaWhatsApp = false) => {
-    e.preventDefault()
-    if (!name.trim() || !phone.trim()) return
+  // Real-time mobile number sanitization
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Strip all non-digit characters
+    let cleaned = e.target.value.replace(/\D/g, "")
 
-    setIsSubmitting(true)
-    const selectedCategory =
-      enquiryCategories.find((c) => c.id === category)?.label || "General Enquiry"
-
-    saveInquiry({
-      id: nextInquiryId(),
-      name: name.trim(),
-      phone: phone.trim(),
-      email: email.trim(),
-      interest: selectedCategory,
-      message: specifications.trim() || "General enquiry.",
-      status: "new",
-      date: new Date().toISOString(),
-    })
-
-    if (viaWhatsApp) {
-      const text = encodeURIComponent(
-        `Hi Shree Balaji Enterprises,\n\nName: ${name.trim()}\nPhone: ${phone.trim()}${email ? `\nEmail: ${email.trim()}` : ""}\nInterest: ${selectedCategory}\nMessage: ${specifications.trim() || "Interested in your properties."}`
-      )
-      window.open(`https://wa.me/917767805544?text=${text}`, "_blank")
+    // If pasted with country code e.g. 919876543210 (12 digits)
+    if (cleaned.length === 12 && cleaned.startsWith("91")) {
+      cleaned = cleaned.slice(2)
     }
 
-    setTimeout(() => {
-      setIsSubmitting(false)
+    // Limit to max 10 digits
+    if (cleaned.length > 10) {
+      cleaned = cleaned.slice(0, 10)
+    }
+
+    setPhone(cleaned)
+
+    if (phoneError) {
+      validatePhone(cleaned)
+    }
+  }
+
+  const validatePhone = (val: string): boolean => {
+    const trimmed = val.trim()
+    if (!trimmed) {
+      setPhoneError("Mobile number is required.")
+      return false
+    }
+    if (trimmed.length < 10) {
+      setPhoneError(`Mobile number must be exactly 10 digits (${trimmed.length}/10 entered).`)
+      return false
+    }
+    if (!/^[6-9]/.test(trimmed)) {
+      setPhoneError("Indian mobile number must start with 6, 7, 8, or 9.")
+      return false
+    }
+    if (!INDIAN_MOBILE_REGEX.test(trimmed)) {
+      setPhoneError("Please enter a valid 10-digit Indian mobile number.")
+      return false
+    }
+    setPhoneError(null)
+    return true
+  }
+
+  const validateName = (val: string): boolean => {
+    const trimmed = val.trim()
+    if (!trimmed) {
+      setNameError("Your name is required.")
+      return false
+    }
+    if (trimmed.length < 2) {
+      setNameError("Name must be at least 2 characters.")
+      return false
+    }
+    setNameError(null)
+    return true
+  }
+
+  const validateEmail = (val: string): boolean => {
+    const trimmed = val.trim()
+    if (!trimmed) {
+      setEmailError(null)
+      return true
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(trimmed)) {
+      setEmailError("Please enter a valid email address.")
+      return false
+    }
+    setEmailError(null)
+    return true
+  }
+
+  const handleSubmit = async (e: React.FormEvent, viaWhatsApp = false) => {
+    e.preventDefault()
+
+    // Prevent double submission
+    if (isSubmitting) return
+
+    const isNameValid = validateName(name)
+    const isPhoneValid = validatePhone(phone)
+    const isEmailValid = validateEmail(email)
+
+    if (!isNameValid || !isPhoneValid || !isEmailValid) {
+      return
+    }
+
+    setIsSubmitting(true)
+    setSubmitError(null)
+
+    const selectedCategory =
+      enquiryCategories.find((c) => c.id === category)?.label || "General Enquiry"
+    const cleanedPhone = phone.trim()
+    const cleanedName = name.trim()
+    const cleanedEmail = email.trim()
+    const cleanedMessage = specifications.trim() || "General enquiry."
+
+    try {
+      // 1. Submit to Next.js server endpoint
+      const response = await fetch("/api/inquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: cleanedName,
+          phone: cleanedPhone,
+          email: cleanedEmail || undefined,
+          interest: selectedCategory,
+          message: cleanedMessage,
+          source: viaWhatsApp ? "Contact Us (WhatsApp)" : "Contact Us",
+          hp: honeypot || undefined,
+        }),
+      })
+
+      const data = await response.json().catch(() => null)
+
+      if (!response.ok || !data?.ok) {
+        throw new Error(data?.error || "Failed to submit enquiry. Please try again.")
+      }
+
+      // 2. Also record in local store for backwards-compatible admin view
+      saveInquiry({
+        id: data.id || nextInquiryId(),
+        name: cleanedName,
+        phone: cleanedPhone,
+        email: cleanedEmail,
+        interest: selectedCategory,
+        message: cleanedMessage,
+        status: "new",
+        date: new Date().toISOString(),
+        source: viaWhatsApp ? "Contact Us (WhatsApp)" : "Contact Us",
+        notificationStatus: data.notificationStatus,
+      })
+
+      // 3. If user clicked WhatsApp button, open WhatsApp chat in new window
+      if (viaWhatsApp) {
+        const text = encodeURIComponent(
+          `Hi Shree Balaji Enterprises,\n\nName: ${cleanedName}\nPhone: +91 ${cleanedPhone}${cleanedEmail ? `\nEmail: ${cleanedEmail}` : ""}\nInterest: ${selectedCategory}\nMessage: ${cleanedMessage}`
+        )
+        window.open(`https://wa.me/917767805544?text=${text}`, "_blank")
+      }
+
+      setSubmittedName(cleanedName)
+      setSubmittedPhone(cleanedPhone)
       setIsSubmitted(true)
-    }, 300)
+    } catch (err: any) {
+      console.error("[Contact Page] Submission error:", err)
+      setSubmitError(
+        err.message || "Unable to send your enquiry right now. Please call us directly or use WhatsApp."
+      )
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleReset = () => {
@@ -90,6 +223,10 @@ function ContactForm() {
     setPhone("")
     setEmail("")
     setSpecifications("")
+    setPhoneError(null)
+    setNameError(null)
+    setEmailError(null)
+    setSubmitError(null)
     setIsSubmitted(false)
   }
 
@@ -264,11 +401,11 @@ function ContactForm() {
                   <Check className="h-5 w-5" />
                 </div>
                 <h3 className="text-xl font-bold text-foreground">
-                  Thank You, {name}!
+                  Thank You, {submittedName}!
                 </h3>
                 <p className="text-xs sm:text-sm text-muted-foreground max-w-sm mx-auto">
-                  Your enquiry has been received. Our team will contact you shortly on{" "}
-                  <strong className="text-foreground">{phone}</strong>.
+                  Your enquiry has been received and logged. Our team will contact you shortly on{" "}
+                  <strong className="text-foreground">+91 {submittedPhone}</strong>.
                 </p>
                 <div className="pt-2 flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm">
                   <button
@@ -287,7 +424,29 @@ function ContactForm() {
                 </div>
               </div>
             ) : (
-              <form onSubmit={(e) => handleSubmit(e, false)} className="space-y-4">
+              <form onSubmit={(e) => handleSubmit(e, false)} className="space-y-4" noValidate>
+                {/* Honeypot field for anti-spam */}
+                <input
+                  type="text"
+                  name="website_url"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  className="sr-only"
+                  aria-hidden="true"
+                />
+
+                {/* Submission Error Banner */}
+                {submitError && (
+                  <div className="p-3 rounded-lg bg-destructive/10 border border-destructive/20 text-xs text-destructive flex items-start gap-2">
+                    <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
+                    <div className="flex-1">
+                      <p className="font-semibold">Submission failed</p>
+                      <p className="mt-0.5">{submitError}</p>
+                    </div>
+                  </div>
+                )}
                 
                 {/* Interest Selection */}
                 <div>
@@ -323,30 +482,53 @@ function ContactForm() {
                       type="text"
                       required
                       value={name}
-                      onChange={(e) => setName(e.target.value)}
+                      onChange={(e) => {
+                        setName(e.target.value)
+                        if (nameError) validateName(e.target.value)
+                      }}
+                      onBlur={() => name && validateName(name)}
                       placeholder="e.g. Ramesh Sharma"
-                      className="h-10 w-full px-3 border border-border rounded-lg bg-background text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                      className={`h-10 w-full px-3 border rounded-lg bg-background text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 transition-all ${
+                        nameError
+                          ? "border-destructive focus:ring-destructive/20 focus:border-destructive"
+                          : "border-border focus:ring-primary/20 focus:border-primary"
+                      }`}
                     />
+                    {nameError && (
+                      <p className="mt-1 text-xs text-destructive font-medium">{nameError}</p>
+                    )}
                   </div>
 
                   <div>
                     <label htmlFor="contact-phone" className="text-xs font-medium text-foreground block mb-1">
-                      Phone Number <span className="text-destructive">*</span>
+                      Mobile Number <span className="text-destructive">*</span>
                     </label>
                     <div className="relative flex items-center">
-                      <span className="absolute left-3 text-xs font-medium text-muted-foreground pointer-events-none">
+                      <span className="absolute left-3 text-xs font-semibold text-muted-foreground pointer-events-none select-none">
                         +91
                       </span>
                       <input
                         id="contact-phone"
                         type="tel"
+                        inputMode="numeric"
+                        pattern="[6-9][0-9]{9}"
+                        maxLength={10}
+                        autoComplete="tel-national"
                         required
                         value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
+                        onChange={handlePhoneChange}
+                        onBlur={() => phone && validatePhone(phone)}
                         placeholder="9876543210"
-                        className="h-10 w-full pl-10 pr-3 border border-border rounded-lg bg-background text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all font-mono"
+                        className={`h-10 w-full pl-11 pr-3 border rounded-lg bg-background text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:ring-2 transition-all font-mono ${
+                          phoneError
+                            ? "border-destructive focus:ring-destructive/20 focus:border-destructive"
+                            : "border-border focus:ring-primary/20 focus:border-primary"
+                        }`}
                       />
                     </div>
+                    {phoneError && (
+                      <p className="mt-1 text-xs text-destructive font-medium">{phoneError}</p>
+                    )}
                   </div>
                 </div>
 
@@ -359,10 +541,21 @@ function ContactForm() {
                     id="contact-email"
                     type="email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => {
+                      setEmail(e.target.value)
+                      if (emailError) validateEmail(e.target.value)
+                    }}
+                    onBlur={() => email && validateEmail(email)}
                     placeholder="you@example.com"
-                    className="h-10 w-full px-3 border border-border rounded-lg bg-background text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                    className={`h-10 w-full px-3 border rounded-lg bg-background text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 transition-all ${
+                      emailError
+                        ? "border-destructive focus:ring-destructive/20 focus:border-destructive"
+                        : "border-border focus:ring-primary/20 focus:border-primary"
+                    }`}
                   />
+                  {emailError && (
+                    <p className="mt-1 text-xs text-destructive font-medium">{emailError}</p>
+                  )}
                 </div>
 
                 {/* Message / Requirements */}
@@ -385,16 +578,26 @@ function ContactForm() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="h-10 px-5 bg-primary text-primary-foreground rounded-lg text-sm font-semibold hover:bg-primary/90 transition-all shadow-xs inline-flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                    className="h-10 px-5 bg-primary text-primary-foreground rounded-lg text-sm font-semibold hover:bg-primary/90 transition-all shadow-xs inline-flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <Send className="h-4 w-4" />
-                    <span>{isSubmitting ? "Sending..." : "Submit Enquiry"}</span>
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        <span>Submitting...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send className="h-4 w-4" />
+                        <span>Submit Enquiry</span>
+                      </>
+                    )}
                   </button>
 
                   <button
                     type="button"
+                    disabled={isSubmitting}
                     onClick={(e) => handleSubmit(e, true)}
-                    className="h-10 px-4 bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-lg text-sm font-semibold transition-colors inline-flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                    className="h-10 px-4 bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-lg text-sm font-semibold transition-colors inline-flex items-center justify-center gap-2 cursor-pointer shadow-xs disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <WhatsAppIcon className="h-4 w-4 fill-current shrink-0" />
                     <span>Send via WhatsApp</span>

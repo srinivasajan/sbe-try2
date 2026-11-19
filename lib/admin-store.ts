@@ -133,6 +133,11 @@ export interface Inquiry {
   message: string
   status: "new" | "contacted" | "closed"
   date: string
+  source?: string
+  notificationStatus?: "sent" | "failed" | "not_configured"
+  notificationError?: string
+  notificationSentAt?: string
+  createdAt?: string
 }
 
 // Purge any previously stored seed/mock inquiry data (emails ending in @example.com)

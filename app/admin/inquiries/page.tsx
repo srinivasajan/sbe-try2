@@ -1,7 +1,20 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { MessageSquare, Trash2, Mail, Phone, CheckCircle2, Clock, XCircle, Search, Filter } from "lucide-react"
+import {
+  MessageSquare,
+  Trash2,
+  Mail,
+  Phone,
+  CheckCircle2,
+  Clock,
+  XCircle,
+  Search,
+  Filter,
+  RefreshCw,
+  AlertTriangle,
+  Send,
+} from "lucide-react"
 import { useAdminAuth } from "@/hooks/use-admin-auth"
 import { getInquiries, saveInquiry, deleteInquiry, Inquiry } from "@/lib/admin-store"
 
@@ -19,8 +32,30 @@ export default function AdminInquiriesPage() {
   const [filterStatus, setFilterStatus] = useState("all")
   const [deleteId, setDeleteId] = useState<number | null>(null)
   const [expanded, setExpanded] = useState<number | null>(null)
+  const [retryingId, setRetryingId] = useState<number | null>(null)
+  const [retryMessage, setRetryMessage] = useState<{ id: number; text: string; success: boolean } | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
 
-  function load() { setInquiries(getInquiries()) }
+  async function load() {
+    setIsLoading(true)
+    try {
+      const res = await fetch("/api/inquiries")
+      if (res.ok) {
+        const data = await res.json()
+        if (Array.isArray(data.inquiries)) {
+          setInquiries(data.inquiries)
+          data.inquiries.forEach((inq: Inquiry) => saveInquiry(inq))
+          setIsLoading(false)
+          return
+        }
+      }
+    } catch (err) {
+      console.warn("Could not fetch inquiries from server API, using local store:", err)
+    }
+    setInquiries(getInquiries())
+    setIsLoading(false)
+  }
+
   useEffect(() => { setMounted(true); load() }, [])
   if (!mounted || !authed) return null
 
@@ -31,11 +66,52 @@ export default function AdminInquiriesPage() {
     return matchSearch && matchStatus
   })
 
-  function setStatus(id: number, status: Inquiry["status"]) {
+  async function setStatus(id: number, status: Inquiry["status"]) {
     const inq = inquiries.find(i => i.id === id)
     if (!inq) return
     saveInquiry({ ...inq, status })
-    load()
+    setInquiries(prev => prev.map(item => item.id === id ? { ...item, status } : item))
+    try {
+      await fetch("/api/inquiries", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, status }),
+      })
+    } catch (err) {
+      console.warn("Failed to update status on server:", err)
+    }
+  }
+
+  async function handleDelete(id: number) {
+    deleteInquiry(id)
+    setInquiries(prev => prev.filter(item => item.id !== id))
+    try {
+      await fetch(`/api/inquiries/${id}`, {
+        method: "DELETE",
+      })
+    } catch (err) {
+      console.warn("Failed to delete inquiry on server:", err)
+    }
+    setDeleteId(null)
+  }
+
+  async function handleRetryNotification(id: number) {
+    setRetryingId(id)
+    setRetryMessage(null)
+    try {
+      const res = await fetch(`/api/inquiries/${id}/retry`, { method: "POST" })
+      const data = await res.json()
+      if (res.ok && data.ok) {
+        setRetryMessage({ id, text: "Notification email dispatched successfully!", success: true })
+      } else {
+        setRetryMessage({ id, text: data.error || "Retry delivery failed.", success: false })
+      }
+      await load()
+    } catch (err: any) {
+      setRetryMessage({ id, text: err.message || "Failed to connect to notification service.", success: false })
+    } finally {
+      setRetryingId(null)
+    }
   }
 
   const counts = {
@@ -102,8 +178,25 @@ export default function AdminInquiriesPage() {
                       <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${statusOpt.color}`}>
                         {statusOpt.label}
                       </span>
+                      {inq.notificationStatus === "sent" && (
+                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full border bg-emerald-50 text-emerald-700 border-emerald-200 inline-flex items-center gap-1">
+                          <CheckCircle2 className="h-3 w-3" /> Email Sent
+                        </span>
+                      )}
+                      {inq.notificationStatus === "failed" && (
+                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full border bg-rose-50 text-rose-700 border-rose-200 inline-flex items-center gap-1" title={inq.notificationError}>
+                          <AlertTriangle className="h-3 w-3" /> Email Failed
+                        </span>
+                      )}
+                      {inq.notificationStatus === "not_configured" && (
+                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full border bg-amber-50 text-amber-700 border-amber-200 inline-flex items-center gap-1" title={inq.notificationError || "Email service not configured in server environment"}>
+                          <Clock className="h-3 w-3" /> Email Not Configured
+                        </span>
+                      )}
                     </div>
-                    <p className="text-xs text-slate-400 mt-0.5 truncate">{inq.interest} · {inq.date}</p>
+                    <p className="text-xs text-slate-400 mt-0.5 truncate">
+                      {inq.interest} &bull; {inq.source || "Contact Us"} &bull; {inq.date ? (inq.date.includes("T") ? new Date(inq.date).toLocaleDateString("en-IN", { timeZone: "Asia/Kolkata", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) : inq.date) : ""}
+                    </p>
                   </div>
                   <div className="hidden sm:flex items-center gap-2 text-slate-400">
                     <a href={`tel:${inq.phone}`} onClick={e => e.stopPropagation()} aria-label={`Call ${inq.name}`}
@@ -132,6 +225,42 @@ export default function AdminInquiriesPage() {
                         <p className="text-sm text-slate-700 leading-relaxed">{inq.message || "—"}</p>
                       </div>
                     </div>
+
+                    {/* Notification Status & Retry Bar */}
+                    <div className="mt-4 p-3 rounded-xl bg-slate-50 border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs">
+                      <div>
+                        <span className="font-semibold text-slate-700">Owner Notification: </span>
+                        {inq.notificationStatus === "sent" ? (
+                          <span className="text-emerald-700 font-medium">Delivered to inbox {inq.notificationSentAt ? `(${new Date(inq.notificationSentAt).toLocaleTimeString("en-IN", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit" })})` : ""}</span>
+                        ) : inq.notificationStatus === "failed" ? (
+                          <span className="text-rose-700 font-medium">Failed: {inq.notificationError || "Could not deliver email"}</span>
+                        ) : (
+                          <span className="text-amber-700 font-medium">{inq.notificationError || "RESEND_API_KEY is not configured in server environment."}</span>
+                        )}
+                      </div>
+                      {inq.notificationStatus !== "sent" && (
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            handleRetryNotification(inq.id)
+                          }}
+                          disabled={retryingId === inq.id}
+                          className="px-3 py-1.5 bg-primary text-white rounded-lg text-xs font-semibold hover:bg-primary/90 transition-colors inline-flex items-center gap-1.5 shrink-0 disabled:opacity-50 cursor-pointer shadow-xs"
+                        >
+                          <RefreshCw className={`h-3 w-3 ${retryingId === inq.id ? "animate-spin" : ""}`} />
+                          <span>{retryingId === inq.id ? "Retrying..." : "Retry Email"}</span>
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Retry Message Alert */}
+                    {retryMessage && retryMessage.id === inq.id && (
+                      <div className={`mt-2 p-2.5 rounded-lg text-xs border ${retryMessage.success ? "bg-emerald-50 text-emerald-700 border-emerald-200" : "bg-rose-50 text-rose-700 border-rose-200"}`}>
+                        {retryMessage.text}
+                      </div>
+                    )}
+
                     {/* Status change */}
                     <div className="mt-4 flex flex-wrap gap-2">
                       <p className="text-xs font-semibold text-slate-500 w-full">Change Status:</p>
@@ -174,7 +303,7 @@ export default function AdminInquiriesPage() {
             <p className="text-sm text-slate-500 text-center mt-2">This will permanently remove the inquiry record.</p>
             <div className="flex gap-3 mt-6">
               <button onClick={() => setDeleteId(null)} className="flex-1 px-4 py-2 border border-slate-200 rounded-lg text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-colors">Cancel</button>
-              <button onClick={() => { deleteInquiry(deleteId); setDeleteId(null); load() }} className="flex-1 px-4 py-2 bg-red-500 hover:bg-red-600 rounded-lg text-sm font-semibold text-white transition-colors">Delete</button>
+              <button onClick={() => handleDelete(deleteId)} className="flex-1 px-4 py-2 bg-red-500 hover:bg-red-600 rounded-lg text-sm font-semibold text-white transition-colors">Delete</button>
             </div>
           </div>
         </div>
