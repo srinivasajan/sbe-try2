@@ -201,7 +201,7 @@ const DEFAULT_SETTINGS: SiteSettings = {
   whatsapp: "917767805544",
   reraNo: "A51700023633",
   tagline: "Your Trusted Real Estate Partner",
-  heroTitle: "Find Your Dream Property in Ambernath & MMR",
+  heroTitle: "Find Your Dream Property in Mumbai & MMR",
   heroSubtitle: "Trusted real estate expertise across Ambernath, Badlapur, Thane and Mumbai (Established 2016).",
   enableWhatsAppButton: true,
   enableAnalytics: true,

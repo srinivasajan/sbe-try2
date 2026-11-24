@@ -18,8 +18,7 @@ const locations = [
     id: "ambernath",
     name: "Ambernath",
     region: "Thane District",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Ambarnath_Shiva_Temple_1.jpg/960px-Ambarnath_Shiva_Temple_1.jpg",
+    image: "/images/location/ambernath.jpg",
     tagline: "Our Home Ground",
     description:
       "Ambernath is where Shree Balaji Enterprises was founded. A vibrant mix of residential pockets, industrial zones and emerging new projects — all within Central Railway reach.",
@@ -34,7 +33,7 @@ const locations = [
     id: "badlapur",
     name: "Badlapur",
     region: "Thane District",
-    image: "/images/badlapur.jpg",
+    image: "/images/location/badlapur.jpg",
     imgClass: "object-[center_30%]",
     tagline: "Nature's Address",
     description:
@@ -50,8 +49,7 @@ const locations = [
     id: "ulhasnagar",
     name: "Ulhasnagar",
     region: "Thane District",
-    image:
-      "https://images.pexels.com/photos/14436470/pexels-photo-14436470.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    image: "/images/location/ulhasnagar.jpg",
     tagline: "Budget-Friendly Urban Hub",
     description:
       "One of the most affordable urban markets in the MMR. Ulhasnagar is dense, commercial-forward and packed with value for investors and end-users alike.",
@@ -66,7 +64,7 @@ const locations = [
     id: "kalyan",
     name: "Kalyan",
     region: "Thane District",
-    image: "/images/kalyan.jpg",
+    image: "/images/location/kalyan.jpg",
     tagline: "The Growth Corridor",
     description:
       "A major rail junction and Tier-2 urban centre, Kalyan is expanding fast. New residential projects, malls and highways are driving strong appreciation.",
@@ -81,7 +79,7 @@ const locations = [
     id: "dombivli",
     name: "Dombivli",
     region: "Thane District",
-    image: "/images/dombivli.jpg",
+    image: "/images/location/dombivli.jpg",
     tagline: "Planned & Peaceful",
     description:
       "Known for its clean, well-planned layout and middle-class residential character, Dombivli offers great value with excellent schools, hospitals and railways.",
@@ -96,8 +94,7 @@ const locations = [
     id: "thane",
     name: "Thane",
     region: "Thane District",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Talao_Pali_%28425538069%29.jpg/960px-Talao_Pali_%28425538069%29.jpg",
+    image: "/images/location/thane.jpg",
     tagline: "The City of Lakes",
     description:
       "Thane blends premium high-rises with serene lakeside living. Well-connected, well-developed and well-loved — it's one of Maharashtra's fastest-growing cities.",
@@ -112,7 +109,7 @@ const locations = [
     id: "mumbai",
     name: "Mumbai",
     region: "Mumbai District",
-    image: "/images/mumbai.jpg",
+    image: "/images/location/mumbai.jpg",
     tagline: "The Maximum City",
     description:
       "India's commercial capital — where every square foot is prime. We assist with residential, commercial and investment properties across Mumbai's diverse neighbourhoods.",
@@ -127,8 +124,7 @@ const locations = [
     id: "navi-mumbai",
     name: "Navi Mumbai",
     region: "Raigad District",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Vashi_Skyline.jpg/960px-Vashi_Skyline.jpg",
+    image: "/images/location/navi-mumbai.jpg",
     tagline: "India's Planned Dream City",
     description:
       "Wide roads, green belts and a meticulously planned layout make Navi Mumbai one of the most liveable cities in the country. Airport incoming, values are rising.",
@@ -143,8 +139,7 @@ const locations = [
     id: "panvel",
     name: "Panvel",
     region: "Raigad District",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Viewing_Panvel_from_Karnala_hills_%285444402729%29.jpg/960px-Viewing_Panvel_from_Karnala_hills_%285444402729%29.jpg",
+    image: "/images/location/panvel.jpg",
     tagline: "Gateway to Konkan",
     description:
       "Panvel is a booming investment destination thanks to the upcoming Navi Mumbai International Airport. Strategic location at expressway and railway junctions.",
@@ -159,8 +154,7 @@ const locations = [
     id: "titwala",
     name: "Titwala",
     region: "Thane District",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Ganesh_Talav%2C_Titwala_05.jpg/960px-Ganesh_Talav%2C_Titwala_05.jpg",
+    image: "/images/location/titwala.jpg",
     tagline: "Spiritual & Serene",
     description:
       "A quaint temple town on the Central Railway with some of the most affordable property rates in the MMR. Ideal for budget buyers and investors looking for low-entry plots.",
@@ -175,8 +169,7 @@ const locations = [
     id: "khopoli",
     name: "Khopoli",
     region: "Raigad District",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Mumbai_Pune_expressway.jpg/960px-Mumbai_Pune_expressway.jpg",
+    image: "/images/location/khopoli.jpg",
     tagline: "Industrial Belt & Getaway",
     description:
       "Adjacent to the Mumbai-Pune Expressway, Khopoli is home to several MIDC industrial estates alongside hill resorts and farmhouse destinations.",
@@ -191,8 +184,7 @@ const locations = [
     id: "karjat",
     name: "Karjat",
     region: "Raigad District",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Kondana.jpg/960px-Kondana.jpg",
+    image: "/images/location/karjat.jpg",
     tagline: "Mumbai's Weekend Escape",
     description:
       "Lush valleys, rivers and cool air make Karjat the premier second-home destination for Mumbaikars. Farm plots, bungalows and eco-resorts are in high demand.",
@@ -207,8 +199,7 @@ const locations = [
     id: "murbad",
     name: "Murbad",
     region: "Thane District",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Sunset_Sunrise_Bhimashankar_Wildlife_Sanctuary_Pune_%281%29_02.jpg/960px-Sunset_Sunrise_Bhimashankar_Wildlife_Sanctuary_Pune_%281%29_02.jpg",
+    image: "/images/location/murbad.jpg",
     tagline: "Countryside at Low Prices",
     description:
       "Murbad offers large land parcels and affordable agricultural plots for those looking to invest in the fringe of MMR. Peaceful, green and growing steadily.",
@@ -223,7 +214,7 @@ const locations = [
     id: "vasai",
     name: "Vasai",
     region: "Palghar District",
-    image: "/images/vasai.jpg",
+    image: "/images/location/vasai.jpg",
     tagline: "Heritage Meets Growth",
     description:
       "Vasai blends Portuguese-era heritage with rapid modern development. Affordable flats, spacious bungalows and excellent road connectivity make it a smart buy.",
@@ -238,7 +229,7 @@ const locations = [
     id: "mira-road",
     name: "Mira Road",
     region: "Thane District",
-    image: "/images/mira.jpg",
+    image: "/images/location/mira-road.jpg",
     tagline: "Suburban Sweet Spot",
     description:
       "One of Mumbai's most popular suburban destinations, Mira Road offers well-planned residential societies, great amenities and strong Western Railway connectivity.",

@@ -11,7 +11,7 @@ export interface BrandLogoProps {
  * Preserves the exact original artwork without modification, redraw, or distortion.
  */
 export function BrandLogo({
-  className = "h-[36px] sm:h-[39px] w-auto aspect-[820/528]",
+  className = "h-[46px] sm:h-[52px] w-auto aspect-[820/528]",
   priority = false,
 }: BrandLogoProps) {
   return (
@@ -49,16 +49,16 @@ export function BrandWordmark({
   const isLg = size === "lg"
 
   const titleSizeClass = isSm
-    ? "text-[15px] sm:text-[16px]"
+    ? "text-[16px] sm:text-[17px]"
     : isLg
-    ? "text-[19px] sm:text-[21px]"
-    : "text-[17px] sm:text-[18.5px]"
+    ? "text-[24px] sm:text-[28px]"
+    : "text-[20px] sm:text-[23px]"
 
   const subSizeClass = isSm
-    ? "text-[8.5px] sm:text-[9px] tracking-[0.285em]"
+    ? "text-[9px] sm:text-[9.5px] tracking-[0.285em]"
     : isLg
-    ? "text-[11px] sm:text-[12px] tracking-[0.308em]"
-    : "text-[9.5px] sm:text-[10.5px] tracking-[0.324em] sm:tracking-[0.308em]"
+    ? "text-[13px] sm:text-[14.5px] tracking-[0.305em]"
+    : "text-[11.5px] sm:text-[13px] tracking-[0.310em] sm:tracking-[0.302em]"
 
   return (
     <span className={`inline-flex flex-col justify-center select-none text-left leading-none ${className}`}>
@@ -110,10 +110,10 @@ export function BrandIdentity({
   // -ml aligns visible gold artwork flush with left boundary
   // -mr trims the ~10.8px internal right transparency so the visual distance to "Shree" is exactly 8.5-9.5px
   const defaultLogoClass = isSm
-    ? "h-[28px] w-auto aspect-[820/528] -ml-0.5 -mr-0.5"
+    ? "h-[32px] w-auto aspect-[820/528] -ml-0.5 -mr-0.5"
     : isLg
-    ? "h-[44px] sm:h-[48px] w-auto aspect-[820/528] -ml-1 sm:-ml-1.5 -mr-1 sm:-mr-1.5"
-    : "h-[36px] sm:h-[39px] w-auto aspect-[820/528] -ml-1 sm:-ml-1.5 -mr-0.5 sm:-mr-0.5"
+    ? "h-[56px] sm:h-[64px] w-auto aspect-[820/528] -ml-1 sm:-ml-1.5 -mr-1 sm:-mr-1.5"
+    : "h-[46px] sm:h-[52px] w-auto aspect-[820/528] -ml-1 sm:-ml-1.5 -mr-0.5 sm:-mr-0.5"
 
   return (
     <div className={`inline-flex items-center gap-0 shrink-0 ${className}`}>

@@ -15,7 +15,7 @@ const siteUrl = "https://shreebalajienterprises.live"
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Shree Balaji Enterprises — Real Estate in Ambernath & MMR",
+    default: "Shree Balaji Enterprises — Real Estate in Mumbai & MMR",
     template: "%s | Shree Balaji Enterprises",
   },
   description:
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     locale: "en_IN",
     url: siteUrl,
     siteName: "Shree Balaji Enterprises",
-    title: "Shree Balaji Enterprises — Real Estate in Ambernath & MMR",
+    title: "Shree Balaji Enterprises — Real Estate in Mumbai & MMR",
     description:
       "RERA-registered real estate agency (Established 2016, MahaRERA: A51700023633). Buy, sell, or rent residential, commercial, and industrial properties across Ambernath, Badlapur, Thane & MMR.",
     images: [
@@ -61,6 +61,8 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
   themeColor: '#006AFF',
 }
 
