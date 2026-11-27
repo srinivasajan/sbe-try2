@@ -12,11 +12,16 @@ function BuyPageContent() {
   const searchParams = useSearchParams()
   const initialQuery = searchParams.get("q") ?? ""
   const initialLocation = searchParams.get("location") ?? ""
+  const initialPropertyType = searchParams.get("propertyType") ?? ""
+  const [priceMin, priceMax] = (searchParams.get("budget") ?? "").split(":")
 
   const [searchQuery, setSearchQuery] = useState(initialQuery)
   const [filters, setFilters] = useState<FilterState>({
     ...DEFAULT_FILTERS,
     location: initialLocation,
+    priceMin: priceMin ?? "",
+    priceMax: priceMax ?? "",
+    homeType: initialPropertyType ? [initialPropertyType] : [],
   })
 
   const buyProperties = useBuyProperties()
@@ -303,8 +308,8 @@ function BuyPageContent() {
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-1 sm:mb-1.5">
                 Marketplace
               </p>
-              <h1 className="text-3xl sm:text-4xl lg:text-[42px] font-normal text-foreground tracking-tight leading-tight">
-                Find Properties <span className="font-serif italic text-muted-foreground">for Sale.</span>
+              <h1 className="text-3xl font-semibold tracking-tight text-foreground leading-tight sm:text-4xl lg:text-[42px]">
+                Find properties for sale across Mumbai &amp; MMR.
               </h1>
               <p className="text-sm text-muted-foreground mt-2 max-w-xl leading-relaxed">
                 Explore homes, apartments and commercial properties across Ambernath, Badlapur, Kalyan and the Mumbai Metropolitan Region.
@@ -385,7 +390,7 @@ function BuyPageContent() {
             </p>
             <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
               {locationDisplay
-                ? `Shree Balaji Enterprises actively represents verified residential and commercial opportunities across ${locationDisplay} and the MMR. Contact our advisory desk directly for upcoming and off-market options.`
+                ? `There are no published listings for ${locationDisplay} in the current results. Contact the team to ask about your requirement.`
                 : "We couldn't find properties matching your current filter criteria. Try adjusting your parameters or contact our local team for unlisted inventory."}
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5">

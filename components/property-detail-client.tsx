@@ -160,9 +160,7 @@ export function PropertyDetailClient({
             {property.address}
           </h1>
 
-          <div className="flex items-center gap-2 mt-1.5 text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
-            <span className="font-semibold text-neutral-900 dark:text-neutral-100">★ 5.0</span>
-            <span>·</span>
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1.5 text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
             <span>{property.city}, Maharashtra</span>
             <span>·</span>
             <span className="text-emerald-700 dark:text-emerald-400 font-medium">RERA A51700023633</span>
@@ -174,7 +172,7 @@ export function PropertyDetailClient({
         {/* ========================================================================= */}
         <div className="mb-10">
           {images.length >= 5 ? (
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-2 rounded-2xl overflow-hidden h-[360px] md:h-[460px] relative">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-2 rounded-xl overflow-hidden h-[min(72vh,460px)] min-h-[280px] relative md:h-[460px]">
               {/* Photo 1 (Big Left) */}
               <div
                 onClick={() => setLightboxIndex(0)}
@@ -464,9 +462,8 @@ export function PropertyDetailClient({
 
               {/* Genuine Trust Facts */}
               <div className="text-[11px] text-muted-foreground space-y-1 pt-2 border-t border-border">
-                <p>• Verified MahaRERA Agency: A51700023633</p>
-                <p>• Free site visit and doorstep consultation</p>
-                <p>• Direct builder inventory pricing</p>
+                <p>Shree Balaji Enterprises · MahaRERA A51700023633</p>
+                <p>Established 2016 · Ambernath, Maharashtra</p>
               </div>
             </div>
           </div>

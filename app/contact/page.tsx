@@ -273,7 +273,7 @@ function ContactForm() {
                 <div>
                   <a
                     href="mailto:shreebalajienterprisesamb@gmail.com"
-                    className="font-semibold text-foreground hover:text-primary transition-colors block break-all"
+                    className="block break-all text-[13px] font-semibold leading-relaxed text-foreground transition-colors hover:text-primary sm:text-sm"
                   >
                     shreebalajienterprisesamb@gmail.com
                   </a>

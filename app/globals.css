@@ -149,6 +149,15 @@
   body {
     @apply bg-background text-foreground;
   }
+  select.sbe-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: none;
+  }
+  select.sbe-select::-ms-expand {
+    display: none;
+  }
 }
 
 @keyframes fade-up {

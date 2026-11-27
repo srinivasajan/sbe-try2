@@ -318,7 +318,7 @@ export function RentFilters({
         <div
           className={`flex items-center gap-2 py-2.5 ${
             activeDropdown ? "overflow-visible" : "overflow-x-auto"
-          } md:overflow-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden`}
+          } md:flex-wrap md:overflow-visible lg:flex-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden`}
         >
           {/* ── 1. LOCATION FILTER ────────────────────── */}
           <div className="relative shrink-0">
@@ -980,10 +980,10 @@ export function RentFilters({
           )}
 
           {/* Right Spacer to naturally position Sort on the far right */}
-          <div className="flex-1 min-w-[8px]" />
+          <div className="hidden min-w-[8px] flex-1 lg:block" />
 
           {/* ── 6. SORT FILTER (Far Right Positioned) ── */}
-          <div className="relative shrink-0">
+          <div className="relative shrink-0 md:ml-auto lg:ml-0">
             <button
               type="button"
               onClick={() => toggleDropdown("sort")}

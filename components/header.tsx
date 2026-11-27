@@ -22,6 +22,7 @@ const navItems = [
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const pathname = usePathname()
+  const isHome = pathname === "/"
 
   return (
     <header className="sticky top-0 z-50 bg-card border-b border-border">
@@ -34,8 +35,8 @@ export function Header() {
         </div>
 
         {/* Center: Motion Primitives Text Navigation Dock (Desktop) */}
-        <div className="hidden lg:flex items-center justify-center shrink-0">
-          <Dock>
+        <div className="hidden xl:flex items-center justify-center shrink-0">
+          <Dock className={isHome ? "rounded-none border-0 bg-transparent px-0 py-0 shadow-none backdrop-blur-none" : undefined}>
             {navItems.map((item) => (
               <DockItem key={item.href} href={item.href}>
                 {item.label}
@@ -46,7 +47,7 @@ export function Header() {
 
         {/* Right side: Contact Us button & Mobile menu */}
         <div className="flex-1 flex items-center justify-end gap-2">
-          <Link href="/contact" className="hidden lg:inline-flex">
+          <Link href="/contact" className="hidden xl:inline-flex">
             <Button size="sm" className="text-sm font-semibold rounded-full px-4.5 shadow-xs">
               Contact Us
             </Button>
@@ -55,7 +56,7 @@ export function Header() {
           {/* Mobile menu button */}
           <motion.button
             whileTap={{ scale: 0.9 }}
-            className="lg:hidden p-2 text-foreground"
+            className="xl:hidden p-2 text-foreground"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
           >
@@ -72,7 +73,7 @@ export function Header() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.22, ease: "easeInOut" }}
-            className="lg:hidden border-t border-border bg-card overflow-hidden"
+            className="xl:hidden border-t border-border bg-card overflow-hidden shadow-xl"
           >
             <nav className="flex flex-col p-4 gap-1" aria-label="Mobile navigation">
               {navItems.map((item) => (

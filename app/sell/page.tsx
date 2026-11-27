@@ -26,25 +26,25 @@ const sellingRoadmap = [
     step: "01",
     title: "Property Inspection & Valuation",
     description:
-      "We inspect your property in person, verify usable carpet area, assess natural light and maintenance condition, and benchmark realistic pricing against recent registered Sub-Registrar transactions in your immediate micro-pocket.",
+      "Share the property location, type and basic details so the team can understand your request and discuss possible next steps.",
   },
   {
     step: "02",
     title: "Strategic Presentation & Paperwork",
     description:
-      "We curate accurate property details, floor plans, and photography. Simultaneously, we examine the title chain, society NOC requirements, and tax clearance to ensure your asset is transaction-ready.",
+      "If you decide to proceed, the team can discuss the information and documents that may be relevant to a sale listing.",
   },
   {
     step: "03",
-    title: "Screened Buyer Matching & Viewings",
+    title: "Buyer Enquiries & Viewings",
     description:
-      "Instead of exposing your home to casual visitors, we match your listing directly with pre-screened buyers and families actively searching in our verified MMR network. Viewings are scheduled strictly around your family's routine.",
+      "Enquiries and viewing arrangements can be discussed with the team, including timing that works for you.",
   },
   {
     step: "04",
     title: "Price Negotiation & Sub-Registrar Deed",
     description:
-      "Our senior advisors manage offer discussions to protect your target value. We draft the agreement for sale, compute stamp duty, coordinate bank releases if under mortgage, and accompany you through biometric deed registration.",
+      "You can discuss offers, paperwork and transaction steps with the relevant professionals before agreeing to proceed.",
   },
 ]
 
@@ -54,31 +54,31 @@ const serviceCorridors = [
     locality: "Ambernath (East & West)",
     role: "Head Office & Home Ground",
     summary:
-      "Resale apartments in established societies near the railway station, independent bungalows in Shiv Mandir and green belts, and MIDC commercial/industrial units.",
+      "Browse current listings and ask the team about property options in Ambernath.",
   },
   {
     locality: "Badlapur (East & West)",
     role: "Affordable Family Housing",
     summary:
-      "Fast-moving resale flats in gated residential townships, river-adjacent complexes, and scenic weekend second homes with clear title documentation.",
+      "Browse current listings and ask the team about property options in Badlapur.",
   },
   {
     locality: "Ulhasnagar",
     role: "Commercial & High-Velocity Retail",
     summary:
-      "High-street retail shops, commercial showrooms, furniture market corridors, and established cooperative housing societies.",
+      "Browse current listings and ask the team about property options in Ulhasnagar.",
   },
   {
     locality: "Kalyan & Dombivli",
     role: "Central MMR Urban Corridor",
     summary:
-      "Modern township resales, established family societies near railway junctions, and appreciating office and retail assets.",
+      "Browse current listings and ask the team about property options in Kalyan and Dombivli.",
   },
   {
     locality: "Titwala & Central Corridors",
     role: "Transit-Oriented Growth Nodes",
     summary:
-      "Appreciating suburban residential developments, budget first-home resales, and clear-title residential land parcels.",
+      "Ask the team about property enquiries in Titwala and nearby areas.",
   },
 ]
 
@@ -86,23 +86,23 @@ const serviceCorridors = [
 const sellerFaqs = [
   {
     q: "How much does the property valuation cost?",
-    a: "Our property valuation is 100% free with zero obligation. An experienced consultant visits your property, reviews recent registered sales comps in your immediate building or locality, and provides an honest market appraisal.",
+    a: "Contact the team to discuss your property and the kind of valuation information you need. Any formal valuation should be confirmed with a qualified valuation professional.",
   },
   {
     q: "What documents are required to initiate the sale?",
-    a: "To begin, we need a copy of your registered Agreement for Sale, Society Share Certificate, and latest Property Tax receipt. If your property is currently mortgaged, we coordinate with your lending institution to obtain the List of Original Documents (LOD).",
+    a: "Requirements depend on the property and transaction. The team can discuss commonly requested documents; confirm the final checklist with your legal or transaction professional.",
   },
   {
-    q: "How long does it typically take to find a verified buyer?",
-    a: "Properties priced in line with current market comps in Ambernath and Badlapur typically secure serious buyer offers within 30 to 60 days. Overpriced listings linger; our valuation is designed to protect your value without stalling.",
+    q: "How long does it take to find a buyer?",
+    a: "Timing depends on the property, asking price, market conditions and buyer interest. No specific sale period can be guaranteed.",
   },
   {
     q: "When is brokerage paid?",
-    a: "Brokerage is payable strictly upon the successful conclusion of the transaction and execution of the registered sale deed at the Sub-Registrar office. We charge zero upfront fees for marketing, photography, or client consultations.",
+    a: "Confirm any brokerage, payment timing and other service terms with the team in writing before proceeding.",
   },
   {
     q: "Can you help sell a commercial shop, industrial shed, or land parcel?",
-    a: "Yes. Alongside residential resales, Shree Balaji Enterprises actively handles commercial shops, corporate office floors, MIDC industrial plots, and clear-title NA land parcels across Thane district.",
+    a: "Send the property type and location through the enquiry form so the team can confirm whether it can assist with your request.",
   },
 ]
 
@@ -152,7 +152,7 @@ export default function SellPage() {
     const inquiryDetails = [
       `Asset: ${propertyType} in ${city}`,
       carpetArea ? `Area: ${carpetArea.trim()}` : null,
-      expectedPrice ? `Target Price: ${expectedPrice.trim()}` : "Target: Market Comps",
+      expectedPrice ? `Target Price: ${expectedPrice.trim()}` : "Target: Discuss price",
       notes ? `Notes: ${notes.trim()}` : null,
     ]
       .filter(Boolean)
@@ -177,7 +177,7 @@ export default function SellPage() {
     // Direct WhatsApp message formatting
     const msg = [
       "Hello Anju ji & Shree Balaji Enterprises,",
-      "I would like to request a Free Property Valuation for selling my property:",
+      "I would like to discuss selling my property:",
       `• Owner Name: ${name.trim()}`,
       `• Contact: ${phone.trim()}`,
       `• Location: ${city}`,
@@ -237,7 +237,7 @@ export default function SellPage() {
       </div>
 
       {/* ── 1. Hero Section: Editorial & Authentic Real Estate ──────── */}
-      <header className="pt-12 sm:pt-16 pb-16 sm:pb-20 border-b border-border/80">
+      <header className="pt-12 sm:pt-14 pb-12 sm:pb-16 border-b border-border/80">
         <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
             
@@ -250,13 +250,12 @@ export default function SellPage() {
                 <span>Est. 2016</span>
               </div>
 
-              <h1 className="text-3xl sm:text-5xl md:text-[52px] font-black tracking-tight text-foreground leading-[1.08] mb-6">
-                Your Next Chapter{" "}
-                <span className="text-muted-foreground font-light italic">Starts Here.</span>
+              <h1 className="text-3xl font-semibold tracking-tight text-foreground leading-[1.1] sm:text-4xl md:text-[48px] mb-5">
+                Sell your property across Mumbai &amp; MMR.
               </h1>
 
               <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-8 max-w-2xl">
-                A real-estate transaction represents years of family equity. We provide verified property valuations based on actual registered Sub-Registrar comps, connect you directly with screened buyers, and manage legal conveyance from title check to final deed execution across Ambernath, Badlapur, and the wider MMR corridor.
+                Share a few details about your property and the team can discuss your selling requirements, possible next steps and the information needed to get started.
               </p>
 
               {/* Action Buttons */}
@@ -266,7 +265,7 @@ export default function SellPage() {
                   onClick={scrollToValuation}
                   className="inline-flex items-center justify-center gap-2 h-11 px-6 rounded-lg bg-primary text-primary-foreground text-xs sm:text-sm font-semibold hover:bg-primary/90 transition-all shadow-xs"
                 >
-                  <span>Request Free Property Valuation</span>
+                  <span>Discuss your property</span>
                   <ArrowRight className="h-4 w-4" />
                 </a>
 
@@ -280,9 +279,8 @@ export default function SellPage() {
                 </button>
               </div>
 
-              {/* Factual Footnote */}
-              <p className="text-xs text-muted-foreground/80 mt-6">
-                Zero upfront fees. Valuation, photography, and marketing are complimentary. Brokerage applies strictly upon registered deed completion.
+              <p className="mt-5 text-xs leading-relaxed text-muted-foreground">
+                Shree Balaji Enterprises is MahaRERA registered (A51700023633) and based in Ambernath.
               </p>
             </div>
 
@@ -324,7 +322,7 @@ export default function SellPage() {
       </header>
 
       {/* ── 2. The Valuation Desk: Editorial Explanation & Form ─────── */}
-      <section id="valuation-desk" className="py-16 sm:py-24 border-b border-border/80 scroll-mt-8">
+      <section id="valuation-desk" className="py-12 sm:py-16 lg:py-20 border-b border-border/80 scroll-mt-8">
         <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
 
@@ -351,28 +349,28 @@ export default function SellPage() {
               <div className="space-y-4 pt-2 border-t border-border/70 text-xs">
                 <div>
                   <h3 className="font-bold text-foreground text-sm mb-1">
-                    1. Registered Sub-Registrar Comps
+                    1. Property details
                   </h3>
                   <p className="text-muted-foreground leading-relaxed">
-                    We reference actual executed and stamp-duty paid sale deed values in your immediate building or street, not speculative asking prices.
+                    Share the location and available details. The team can discuss the information that may be useful when considering a sale.
                   </p>
                 </div>
 
                 <div>
                   <h3 className="font-bold text-foreground text-sm mb-1">
-                    2. Usable Carpet &amp; Physical Efficiency
+                    2. Area and condition
                   </h3>
                   <p className="text-muted-foreground leading-relaxed">
-                    RERA carpet area measurement, building age, society maintenance track record, floor height, and road frontage determine true liveability value.
+                    Property type, size, condition and documentation are among the details that can help frame an enquiry.
                   </p>
                 </div>
 
                 <div>
                   <h3 className="font-bold text-foreground text-sm mb-1">
-                    3. Live Buyer Absorption Velocity
+                    3. Enquiries and viewings
                   </h3>
                   <p className="text-muted-foreground leading-relaxed">
-                    We match your configuration directly against verified buyer inquiries actively looking in Ambernath and the Central MMR corridor right now.
+                    Enquiry and viewing options depend on the property and current interest.
                   </p>
                 </div>
               </div>
@@ -403,7 +401,7 @@ export default function SellPage() {
                       Valuation Request Registered
                     </h3>
                     <p className="text-sm text-muted-foreground max-w-md mx-auto leading-relaxed mb-6">
-                      Thank you, <span className="font-semibold text-foreground">{name}</span>. Your property valuation request has been logged. Anju Sharma and our local comp specialist will review recent registered sales for your property and contact you at <span className="font-semibold text-foreground">{phone}</span> shortly.
+                      Thank you, <span className="font-semibold text-foreground">{name}</span>. Your property valuation request has been logged. The team will review the details you shared and contact you at <span className="font-semibold text-foreground">{phone}</span> shortly.
                     </p>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
                       <button
@@ -427,7 +425,7 @@ export default function SellPage() {
                   <>
                     <div className="border-b border-border/60 pb-4 mb-6">
                       <h3 className="text-lg sm:text-xl font-bold text-foreground">
-                        Request a Free Property Valuation
+                        Discuss your property
                       </h3>
                       <p className="text-xs text-muted-foreground mt-1">
                         Please provide basic details about your property. All information is held in strict professional confidence.
@@ -594,7 +592,7 @@ export default function SellPage() {
       </section>
 
       {/* ── 3. How We Help You Sell: Editorial Process Timeline ─────── */}
-      <section className="py-16 sm:py-24 border-b border-border/80 bg-muted/10">
+      <section className="py-12 sm:py-16 lg:py-20 border-b border-border/80 bg-muted/10">
         <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
           
           <div className="max-w-2xl mb-12 sm:mb-16">
@@ -638,7 +636,7 @@ export default function SellPage() {
       </section>
 
       {/* ── 4. Business Strengths: Asymmetric Editorial Composition ─── */}
-      <section className="py-16 sm:py-24 border-b border-border/80">
+      <section className="py-12 sm:py-16 lg:py-20 border-b border-border/80">
         <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             
@@ -654,7 +652,7 @@ export default function SellPage() {
               </div>
 
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Real estate representation requires local credibility, legal accuracy, and authentic buyer relationships. We operate as an established local agency, not a faceless tech platform or an unorganized roadside broker.
+                Shree Balaji Enterprises is based in Ambernath and handles property enquiries across the Mumbai Metropolitan Region.
               </p>
 
               {/* Supporting Authentic Architecture Visual */}
@@ -668,7 +666,7 @@ export default function SellPage() {
                 />
               </div>
               <p className="text-[11px] text-muted-foreground italic">
-                Representing residential and commercial properties across Ambernath, Badlapur, and MMR since 2016.
+                Shree Balaji Enterprises was established in 2016.
               </p>
             </div>
 
@@ -676,37 +674,37 @@ export default function SellPage() {
             <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8 pt-2">
               <div className="space-y-2">
                 <h3 className="text-base font-bold text-foreground">
-                  Sub-Registrar Ground Comp Intelligence
+                  Property information
                 </h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                  Suburban micro-markets vary dramatically between adjacent societies. Because our team is based physically in Ambernath, we monitor actual executed deeds and know what properties are legitimately selling for today.
+                  Share the location and property details to help the team understand your sale enquiry.
                 </p>
               </div>
 
               <div className="space-y-2">
                 <h3 className="text-base font-bold text-foreground">
-                  Active Network of Screened Buyers
+                  Enquiries and viewings
                 </h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                  We maintain ongoing relationships with hundreds of local families, business owners, and verified investors with pre-approved banking finances. Viewings are limited to serious, qualified home seekers.
+                  The team can discuss how enquiries and property viewings are handled for a listing.
                 </p>
               </div>
 
               <div className="space-y-2">
                 <h3 className="text-base font-bold text-foreground">
-                  MahaRERA Statutory Compliance
+                  MahaRERA registration
                 </h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                  Operating strictly under MahaRERA Agency Registration No. A51700023633. We adhere to Maharashtra regulatory standards: transparent agency terms, clear written communication, and complete statutory legitimacy.
+                  Shree Balaji Enterprises is registered with MahaRERA under agent registration number A51700023633.
                 </p>
               </div>
 
               <div className="space-y-2">
                 <h3 className="text-base font-bold text-foreground">
-                  End-to-End Legal Conveyance
+                  Transaction next steps
                 </h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                  Selling property involves comprehensive documentation. Our advisory team coordinates 30-year title searches, society NOCs, encumbrance clearances, sale deed drafting, and physical Sub-Registrar appointments.
+                  Documentation and legal steps depend on the property and transaction. Consult a qualified legal professional about your specific requirements.
                 </p>
               </div>
             </div>
@@ -716,7 +714,7 @@ export default function SellPage() {
       </section>
 
       {/* ── 5. Geographic Service Corridors (Simplified Typographic Index) ─ */}
-      <section className="py-16 sm:py-24 border-b border-border/80 bg-muted/10">
+      <section className="py-12 sm:py-16 lg:py-20 border-b border-border/80 bg-muted/10">
         <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
           
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 pb-4 border-b border-border/60">
@@ -782,7 +780,7 @@ export default function SellPage() {
       </section>
 
       {/* ── 6. Seller FAQs: Clean Accessible Accordion ───────────────── */}
-      <section className="py-16 sm:py-24 border-b border-border/80">
+      <section className="py-12 sm:py-16 lg:py-20 border-b border-border/80">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           
           <div className="text-center mb-12">
@@ -830,7 +828,7 @@ export default function SellPage() {
       </section>
 
       {/* ── 7. Final Advisory Section: Considered Editorial Narrative ─ */}
-      <section className="py-16 sm:py-24 bg-muted/15">
+      <section className="py-12 sm:py-16 lg:py-20 bg-muted/15">
         <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
           
           <div className="max-w-3xl mx-auto text-center space-y-6">
@@ -841,7 +839,7 @@ export default function SellPage() {
               Thinking About Selling Your Property?
             </h2>
             <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-              Whether you are ready to sell now or exploring options for the coming months, a confidential discussion with Anju Sharma and our local advisory desk gives you genuine market clarity.
+              Share your property details with the team to discuss your requirements and possible next steps.
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-3 pt-2">

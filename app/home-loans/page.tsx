@@ -27,36 +27,36 @@ const loanProcessSteps = [
     step: "01",
     title: "Initial Consultation & Property Budgeting",
     description:
-      "We begin by understanding the specific property you are considering, your targeted purchase timeline, and your available savings to establish a comfortable borrowing framework.",
-    deliverable: "Target borrowing budget",
+      "Discuss the property you are considering and the questions you plan to ask the lender.",
+    deliverable: "Purchase budget questions",
   },
   {
     step: "02",
     title: "Income & Credit Assessment",
     description:
-      "We review your net monthly income, existing loan commitments, and credit profile to estimate an achievable borrowing range before you pay earnest booking money to a seller or builder.",
-    deliverable: "Initial eligibility check",
+      "Lenders assess applications using their own criteria. Confirm your potential eligibility and terms directly with the lender before committing funds.",
+    deliverable: "Lender eligibility criteria",
   },
   {
     step: "03",
     title: "Document Preparation",
     description:
-      "Our team provides a clear checklist for your employment type, reviews your KYC documents, salary slips or business returns, and verifies property title papers so your file is ready for underwriting.",
-    deliverable: "Completed document file",
+      "Document requirements vary by lender and applicant. Ask the lender for the current checklist that applies to you and the property.",
+    deliverable: "Document checklist",
   },
   {
     step: "04",
     title: "Bank Application & Follow-up",
     description:
-      "We assist you in submitting your file to the most suitable public or private lending institutions, coordinating directly with bank underwriters and legal advocates to resolve questions promptly.",
-    deliverable: "Application submitted to lenders",
+      "Submit the application to the lender and follow its instructions for any questions or additional documents.",
+    deliverable: "Application steps",
   },
   {
     step: "05",
     title: "Sanction & Loan Disbursement",
     description:
-      "Once your sanction letter arrives, we help you understand the terms, oversee the bank's technical valuation of the property, and assist through stamp duty registration and final disbursement.",
-    deliverable: "Disbursement and property registration",
+      "The lender decides whether to approve an application and sets its terms. Confirm disbursement, property review and registration steps with the lender and your legal professional.",
+    deliverable: "Lender decision and next steps",
   },
 ]
 
@@ -113,50 +113,50 @@ const eligibilityFactors = [
   {
     title: "Monthly Income & Existing EMIs",
     explanation:
-      "Lenders benchmark your repayment capacity using the Fixed Obligation to Income Ratio (FOIR). Most banks generally prefer that your total monthly loan commitments—including existing vehicle or personal loans—remain between 40% and 50% of your verifiable net household income, though specific limits vary by institution and income bracket.",
+      "Lenders consider income, existing repayments and other details when assessing an application. Their calculations and eligibility criteria vary.",
   },
   {
     title: "Credit Profile & CIBIL Score",
     explanation:
-      "A CIBIL score of 750 or above typically qualifies borrowers for smoother processing and preferred interest rates. However, approval is still practical for scores between 650 and 740, often by adding an earning co-applicant or opting for specialized housing finance programs.",
+      "Credit history is one of the factors a lender may review. Ask the lender how it assesses your profile and what options may apply to your situation.",
   },
   {
     title: "Loan-to-Value (LTV) Norms",
     explanation:
-      "Under prevailing statutory guidelines, lending institutions generally fund between 75% and 90% of a property's registered agreement value, depending on the property cost bracket. The remaining amount represents the buyer's own down payment and registration expenses.",
+      "Loan amount and borrower contribution depend on lender policy, property details and the applicant's circumstances. Confirm current terms with the lender.",
   },
   {
     title: "Property Approvals & Title Clarity",
     explanation:
-      "Banks evaluate the legal and structural standing of the property independently. Properties with clear 30-year chain deeds, Occupancy Certificates (OC), and municipal building permissions progress through technical verification with fewer queries.",
+      "The lender may review property and ownership documents as part of its process. Ask the lender which records it requires for the property you are considering.",
   },
 ]
 
 // ── Frequently Asked Home Loan Questions ─────────────────────────────
 const loanFaqs = [
   {
-    q: "Does Shree Balaji Enterprises charge any fee for loan assistance?",
-    a: "No. Our home loan guidance and document coordination services are completely free for property buyers. We charge zero advisory fees, processing commissions, or consultation costs.",
+    q: "What does home loan assistance include?",
+    a: "Ask our team about the scope of assistance and any applicable charges before proceeding. Loan charges, terms and approval decisions are set by the lending institution.",
   },
   {
     q: "Is Shree Balaji Enterprises a bank or direct lender?",
     a: "No. Shree Balaji Enterprises is a licensed real-estate consultancy (MahaRERA: A51700023633). We act solely as a local facilitation partner, helping buyers organize paperwork and coordinate with recognized banks and housing finance companies. Final loan sanctions and terms are determined solely by the lending institution.",
   },
   {
-    q: "What CIBIL score is generally needed for a home loan?",
-    a: "A CIBIL score of 750 and above is considered healthy by most lending institutions. If your score is between 650 and 740, approval is still very possible, though banks may ask for a higher down payment or an earning co-applicant.",
+    q: "What credit score is needed for a home loan?",
+    a: "Lenders assess credit history alongside income, existing obligations, property details and their own current policies. Check the criteria directly with the lender you are considering.",
   },
   {
     q: "Can self-employed individuals with cash or seasonal income apply?",
-    a: "Yes. Many housing finance institutions evaluate self-employed applicants using banking turnover models, GST return volumes, and gross business receipts rather than strict salaried payslips. We guide you on organizing the appropriate financial records.",
+    a: "Requirements vary by lender and applicant. Contact the lender directly to understand which income and business records it currently accepts.",
   },
   {
-    q: "How long does the home loan sanction process take in Ambernath?",
-    a: "For properties with clear title and complete documentation, provisional sanction typically takes 5 to 7 business days. Technical valuation and final disbursement generally conclude within 10 to 15 business days thereafter.",
+    q: "How long does a home loan application take?",
+    a: "Timing varies by lender, applicant documents and property review. The lender can provide the current processing estimate for an application.",
   },
   {
     q: "What is an APF (Approved Project Financial) number?",
-    a: "An APF code indicates that a developer's project has already been legally and technically vetted by major banks. Purchasing a home in an APF-approved project speeds up individual loan approvals significantly because the master property title is pre-cleared.",
+    a: "Some lenders use project approval lists as part of their process. A project listing does not guarantee an individual loan approval; confirm details and requirements with the lender.",
   },
 ]
 
@@ -269,7 +269,7 @@ export default function HomeLoansPage() {
     // Direct WhatsApp message formatting
     const msg = [
       "Hello Anju ji & Shree Balaji Enterprises,",
-      "I would like to request Free Home Loan Guidance for my property purchase:",
+      "I would like to ask about home loan assistance for my property purchase:",
       `• Applicant Name: ${name.trim()}`,
       `• Mobile: ${phone.trim()}`,
       `• Employment Type: ${employmentType}`,
@@ -338,19 +338,18 @@ export default function HomeLoansPage() {
       </div>
 
       {/* ── 1. Hero Section: Confident, Art-Directed, Uncluttered ──── */}
-      <header className="py-20 sm:py-28 lg:py-32 border-b border-border/80">
+      <header className="py-12 sm:py-16 lg:py-20 border-b border-border/80">
         <div className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
             
             {/* Left Column: Heading & Service Overview */}
             <div className="lg:col-span-7 space-y-6 sm:space-y-7">
-              <h1 className="text-4xl sm:text-6xl md:text-[62px] font-black tracking-tight text-foreground leading-[1.08]">
-                Your Home Loan,{" "}
-                <span className="text-primary font-serif italic font-normal">Handled For You.</span>
+              <h1 className="text-3xl font-semibold tracking-tight text-foreground leading-tight sm:text-4xl md:text-[48px]">
+                Home loan guidance for your property purchase.
               </h1>
 
               <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-xl font-normal">
-                We help property buyers understand their borrowing capacity, prepare the necessary paperwork, and coordinate with banks across the Mumbai Metropolitan Region—from first application to final disbursement.
+                Get information about common application documents and the home loan process. Eligibility, terms and approval are determined by each lender.
               </p>
 
               {/* Action Buttons */}
@@ -360,7 +359,7 @@ export default function HomeLoansPage() {
                   onClick={scrollToEnquiry}
                   className="inline-flex items-center justify-center gap-2 h-12 px-7 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-all shadow-xs"
                 >
-                  <span>Get Free Loan Guidance</span>
+                  <span>Ask about home loans</span>
                   <ArrowRight className="h-4 w-4" />
                 </a>
 
@@ -378,7 +377,7 @@ export default function HomeLoansPage() {
               <div className="flex flex-wrap items-center gap-x-6 gap-y-3 pt-6 border-t border-border/60 text-sm text-muted-foreground">
                 <div className="flex items-center gap-2 font-medium text-foreground">
                   <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                  <span>Free service for property buyers</span>
+                  <span>Application information</span>
                 </div>
                 <div className="flex items-center gap-2 font-medium text-foreground">
                   <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
@@ -386,7 +385,7 @@ export default function HomeLoansPage() {
                 </div>
                 <div className="flex items-center gap-2 font-medium text-foreground">
                   <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                  <span>Multi-bank coordination</span>
+                  <span>Lender sets terms and approval</span>
                 </div>
               </div>
             </div>
@@ -410,7 +409,7 @@ export default function HomeLoansPage() {
       </header>
 
       {/* ── 2. Loan Assistance: Editorial Split (No Generic Cards) ─── */}
-      <section className="py-20 sm:py-28 lg:py-32 border-b border-border/80">
+      <section className="py-12 sm:py-16 lg:py-20 border-b border-border/80">
         <div className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
             
@@ -423,7 +422,7 @@ export default function HomeLoansPage() {
                 Financial Guidance for Property Buyers.
               </h2>
               <p className="text-base text-muted-foreground leading-relaxed">
-                Purchasing a home is often the largest financial commitment a family makes. As your local property partner, we manage the loan coordination free of charge so your purchase remains on track from day one.
+                We can help you understand the typical steps involved and prepare questions for the lender. The lending institution assesses each application and sets its own requirements.
               </p>
             </div>
 
@@ -439,7 +438,7 @@ export default function HomeLoansPage() {
                   Borrowing Capacity &amp; Eligibility
                 </h3>
                 <p className="text-base text-muted-foreground leading-relaxed">
-                  Before you commit funds to a seller or builder, we review your net household income, ongoing commitments, and credit profile to calculate a realistic, sustainable loan amount.
+                  A lender assesses income, existing commitments, credit history and other application details. Ask the lender to explain how its criteria apply to you.
                 </p>
               </div>
 
@@ -478,7 +477,7 @@ export default function HomeLoansPage() {
                   Registration and Disbursement Support
                 </h3>
                 <p className="text-base text-muted-foreground leading-relaxed">
-                  Our assistance continues until funds are released. We coordinate with the bank&apos;s legal panel for title verification, review draft loan agreements, and accompany you through Sub-Registrar registration and disbursement.
+                  Application follow-up, legal review and registration steps depend on the lender and transaction. Confirm responsibilities with the relevant professionals before proceeding.
                 </p>
               </div>
 
@@ -489,7 +488,7 @@ export default function HomeLoansPage() {
       </section>
 
       {/* ── 3. Loan Process: Spacious Connected Vertical Timeline ──── */}
-      <section className="py-20 sm:py-28 lg:py-32 border-b border-border/80 bg-muted/10">
+      <section className="py-12 sm:py-16 lg:py-20 border-b border-border/80 bg-muted/10">
         <div className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-8">
           
           <div className="max-w-2xl mb-16 sm:mb-24">
@@ -545,7 +544,7 @@ export default function HomeLoansPage() {
       </section>
 
       {/* ── 4. EMI Calculator: Featured Financial Planning Tool ────── */}
-      <section id="loan-calculator" className="py-20 sm:py-28 lg:py-32 border-b border-border/80 scroll-mt-8">
+      <section id="loan-calculator" className="py-12 sm:py-16 lg:py-20 border-b border-border/80 scroll-mt-8">
         <div className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-8">
           
           <div className="max-w-2xl mb-14 sm:mb-18">
@@ -714,7 +713,7 @@ export default function HomeLoansPage() {
       </section>
 
       {/* ── 5. Documentation: Spacious, Readable Accordion ─────────── */}
-      <section className="py-20 sm:py-28 lg:py-32 border-b border-border/80 bg-muted/10">
+      <section className="py-12 sm:py-16 lg:py-20 border-b border-border/80 bg-muted/10">
         <div className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-8">
           
           <div className="max-w-2xl mb-14 sm:mb-18">
@@ -725,7 +724,7 @@ export default function HomeLoansPage() {
               Required Documents by Applicant Type.
             </h2>
             <p className="text-base text-muted-foreground leading-relaxed">
-              Having your documents ready in advance speeds up the loan sanction process. Select your applicant category below to review the standard checklist.
+              The lists below are general examples only. Requirements vary by lender, applicant and property; request the current checklist directly from the lender.
             </p>
           </div>
 
@@ -787,7 +786,7 @@ export default function HomeLoansPage() {
       </section>
 
       {/* ── 6. Eligibility: Editorial 2-Column Split (No Icon Grids) ─ */}
-      <section className="py-20 sm:py-28 lg:py-32 border-b border-border/80">
+      <section className="py-12 sm:py-16 lg:py-20 border-b border-border/80">
         <div className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-8">
           
           <div className="max-w-2xl mb-16 sm:mb-20">
@@ -826,7 +825,7 @@ export default function HomeLoansPage() {
       </section>
 
       {/* ── 7. Enquiry Form: Spacious 2-Column Layout ──────────────── */}
-      <section id="loan-enquiry" className="py-20 sm:py-28 lg:py-32 border-b border-border/80 scroll-mt-8 bg-muted/15">
+      <section id="loan-enquiry" className="py-12 sm:py-16 lg:py-20 border-b border-border/80 scroll-mt-8 bg-muted/15">
         <div className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
             
@@ -834,10 +833,10 @@ export default function HomeLoansPage() {
             <div className="lg:col-span-5 space-y-6">
               <div>
                 <p className="text-primary text-xs font-bold uppercase tracking-[0.25em] mb-3">
-                  Free Advisory Desk
+                  Home Loan Enquiry
                 </p>
                 <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-black text-foreground tracking-tight leading-[1.15]">
-                  Request Free Home Loan Guidance.
+                  Ask about home loan assistance.
                 </h2>
               </div>
 
@@ -849,7 +848,7 @@ export default function HomeLoansPage() {
                 <div className="flex items-start gap-3">
                   <CheckCircle2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                   <p>
-                    <span className="font-semibold text-foreground">Zero Advisory Fees:</span> Our loan assistance is 100% complimentary for home buyers.
+                    <span className="font-semibold text-foreground">Lender decisions:</span> Eligibility, fees and loan terms are determined by the lender.
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
@@ -861,7 +860,7 @@ export default function HomeLoansPage() {
                 <div className="flex items-start gap-3">
                   <CheckCircle2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                   <p>
-                    <span className="font-semibold text-foreground">Direct Local Assistance:</span> Coordinated in person by Anju Sharma and our senior property team in Ambernath.
+                    <span className="font-semibold text-foreground">Direct Local Assistance:</span> Coordinated in person by the Ambernath office.
                   </p>
                 </div>
               </div>
@@ -892,7 +891,7 @@ export default function HomeLoansPage() {
                       Guidance Request Received
                     </h3>
                     <p className="text-base text-muted-foreground max-w-md mx-auto leading-relaxed mb-8">
-                      Thank you, <span className="font-semibold text-foreground">{name}</span>. Your home loan guidance request has been logged. Anju Sharma and our advisory team will review your parameters and contact you at <span className="font-semibold text-foreground">{phone}</span> shortly.
+                      Thank you, <span className="font-semibold text-foreground">{name}</span>. Your home loan guidance request has been logged. The team will review your request and contact you at <span className="font-semibold text-foreground">{phone}</span> shortly.
                     </p>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                       <button
@@ -916,7 +915,7 @@ export default function HomeLoansPage() {
                   <>
                     <div className="border-b border-border/60 pb-5 mb-8">
                       <h3 className="text-xl sm:text-2xl font-bold text-foreground">
-                        Request Free Loan Assistance
+                        Ask about loan assistance
                       </h3>
                       <p className="text-sm text-muted-foreground mt-1">
                         Please provide basic parameters about your purchase. We do not require sensitive bank credentials.
@@ -1078,7 +1077,7 @@ export default function HomeLoansPage() {
                           className="w-full inline-flex items-center justify-center gap-2 h-12 px-6 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-all shadow-xs disabled:opacity-70"
                         >
                           <Lock className="h-4 w-4 opacity-80" />
-                          <span>{isSubmitting ? "Submitting Request..." : "Get Free Loan Guidance"}</span>
+                          <span>{isSubmitting ? "Submitting Request..." : "Send Home Loan Enquiry"}</span>
                           <ArrowRight className="h-4 w-4" />
                         </button>
 
@@ -1099,7 +1098,7 @@ export default function HomeLoansPage() {
       </section>
 
       {/* ── 8. Frequently Asked Questions: Clean Reading Container ── */}
-      <section className="py-20 sm:py-28 lg:py-32 border-b border-border/80">
+      <section className="py-12 sm:py-16 lg:py-20 border-b border-border/80">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           
           <div className="text-center mb-16 sm:mb-20">
@@ -1158,7 +1157,7 @@ export default function HomeLoansPage() {
       </section>
 
       {/* ── 9. Final Advisory Section: Natural Conclusion ──────────── */}
-      <section className="py-24 sm:py-32 bg-card">
+      <section className="py-12 sm:py-16 bg-card">
         <div className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-8">
           
           <div className="max-w-2xl mx-auto text-center space-y-6">
@@ -1166,7 +1165,7 @@ export default function HomeLoansPage() {
               Have Questions About Your Property Loan?
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-              Whether you are deciding on your borrowing budget or ready to coordinate with banks, our advisory desk is available to assist property buyers across Ambernath and the Mumbai Metropolitan Region.
+              Contact the Ambernath office with your home loan questions. The lender will confirm current eligibility, fees and terms.
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-4 pt-3">
@@ -1175,7 +1174,7 @@ export default function HomeLoansPage() {
                 onClick={scrollToEnquiry}
                 className="inline-flex items-center justify-center gap-2 h-12 px-7 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-all shadow-xs"
               >
-                <span>Get Free Loan Guidance</span>
+                <span>Ask about home loans</span>
                 <ArrowRight className="h-4 w-4" />
               </a>
 

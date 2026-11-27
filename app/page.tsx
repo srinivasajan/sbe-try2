@@ -1,5 +1,6 @@
 import { Metadata } from "next"
 import { HomeHero } from "@/components/home-hero"
+import { HomeSections } from "@/components/home-sections"
 
 export const metadata: Metadata = {
   title: "Shree Balaji Enterprises — Real Estate in Mumbai & MMR",
@@ -11,5 +12,10 @@ export const metadata: Metadata = {
 }
 
 export default function Home() {
-  return <HomeHero />
+  return (
+    <main className="flex-1 bg-background text-foreground">
+      <HomeHero />
+      <HomeSections />
+    </main>
+  )
 }
